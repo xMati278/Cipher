@@ -98,24 +98,24 @@ class Cipher:
                 if mode == 1 and not self.message == "":
                     if self.shift == 13:
                         encrypted_message_rot13 = self.encrypt_message_rot13(msg=self.message)
-                        buffer_dict = {"text_before": self.message, "rot_type": 'ROT13',
-                                       "text_after": encrypted_message_rot13, "status": "encrypted"}
+                        buffer_dict = {"text_before": self.message, "text_after": encrypted_message_rot13,
+                                       "rot_type": 'ROT13', "status": "encrypted"}
 
                     else:
                         encrypted_message_rot47 = self.encrypt_message_rot47(msg=self.message)
-                        buffer_dict = {"text_before": self.message, "rot_type": 'ROT47',
-                                       "text_after": encrypted_message_rot47, "status": "encrypted"}
+                        buffer_dict = {"text_before": self.message, "text_after": encrypted_message_rot47,
+                                       "rot_type": 'ROT47', "status": "encrypted"}
 
                 elif mode == 2 and not self.message == "":
                     if self.shift == 13:
                         decrypted_message_rot13 = self.decrypt_message_rot13(msg=self.message)
-                        buffer_dict = {"text_before": self.message, "rot_type": 'ROT13',
-                                       "text_after": decrypted_message_rot13, "status": "decrypted"}
+                        buffer_dict = {"text_before": self.message, "text_after": decrypted_message_rot13,
+                                       "rot_type": 'ROT47', "status": "decrypted"}
 
                     else:
                         decrypted_message_rot47 = self.decrypt_message_rot47(msg=self.message)
-                        buffer_dict = {"text_before": self.message, "rot_type": 'ROT47',
-                                       "text_after": decrypted_message_rot47, "status": "decrypted"}
+                        buffer_dict = {"text_before": self.message, "text_after": decrypted_message_rot47,
+                                       "rot_type": 'ROT47', "status": "decrypted"}
 
                 else:
                     raise ValueError("You have entered an invalid message.")
