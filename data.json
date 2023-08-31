@@ -1,0 +1,26 @@
+[
+    {
+        "text_before": "test13",
+        "rot_type": "ROT13",
+        "text_after": "grfg13",
+        "status": "encrypted"
+    },
+    {
+        "text_before": "grfg13",
+        "rot_type": "ROT13",
+        "text_after": "test13",
+        "status": "decrypted"
+    },
+    {
+        "text_before": "test47",
+        "rot_type": "ROT47",
+        "text_after": "E6DEcf",
+        "status": "encrypted"
+    },
+    {
+        "text_before": "E6DEcf",
+        "rot_type": "ROT47",
+        "text_after": "test47",
+        "status": "decrypted"
+    }
+]

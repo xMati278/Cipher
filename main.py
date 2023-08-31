@@ -1,8 +1,18 @@
 import json
 import os
+import codecs
 
 
 def file_handler(mode: str, filename: str, data: list = None) -> list:
+    """
+    Supports file operations.
+
+    :param mode: "write" or "read"
+    :param filename:"example" or "example.JSON" - filename or filename with extension .JSON
+    :param data: optional parameter for saving data
+    :return: a list of dictionaries based on the given file
+    """
+
     if mode not in ["read", "write"]:
         raise ValueError("Mode must be 'read' or 'write'")
 
@@ -30,25 +40,26 @@ def file_handler(mode: str, filename: str, data: list = None) -> list:
                 raise ValueError("Data must be provided in 'write' mode")
 
             with open(filename, "w") as file:
-                print(data)
                 json.dump(data, file, indent=4)
 
     except Exception as e:
         print(e)
 
-class Cipher:
 
+class Cipher:
     def __init__(self):
         self.buffer = None
-        self.running = True
         self.filename = None
         self.mode = None
         self.message = None
         self.shift = None
 
     def start(self):
+        """
+        Starts the operation of the application based on ROT13 and ROT47 encryption.
+        """
 
-        while self.running:
+        while True:
             print("")
             print("Welcome to Cipher App")
             print("Available functionalities:")
@@ -59,7 +70,10 @@ class Cipher:
             try:
                 self.mode = int(input("Choose what you want to do (enter a number):"))
 
-                if 0 <= self.mode <= 2:
+                if self.mode == 0:
+                    break
+
+                if 0 < self.mode <= 2:
                     self.shift = int(input("Enter 13 if you want to use ROT13 encryption/ decryption or"
                                            " 47 if you want to use ROT47 encryption/ decryption:"))
                     self.message = str(input("Enter message to be encrypted/ decrypted:"))
@@ -74,70 +88,106 @@ class Cipher:
                 print(e)
 
     def menu(self, mode: int):
-        if mode == 1 or mode == 2:
-            try:
-                if self.shift in [13, 47]:
-                    if mode == 1 and not self.message == "":
-                        self.encrypt_message(msg=self.message, shift=self.shift)
+        """
+        Supports the main menu of the application.
 
-                    elif mode == 2 and not self.message == "":
-                        self.decrypt_message(msg=self.message, shift=self.shift)
+        :param mode: 1: ROT13, 2: ROT47, 3: Save and exit
+        """
+        try:
+            if self.shift in [13, 47]:
+                if mode == 1 and not self.message == "":
+                    if self.shift == 13:
+                        encrypted_message_rot13 = self.encrypt_message_rot13(msg=self.message)
+                        buffer_dict = {"text_before": self.message, "rot_type": 'ROT13',
+                                       "text_after": encrypted_message_rot13, "status": "encrypted"}
 
                     else:
-                        raise ValueError("You have entered an invalid message.")
+                        encrypted_message_rot47 = self.encrypt_message_rot47(msg=self.message)
+                        buffer_dict = {"text_before": self.message, "rot_type": 'ROT47',
+                                       "text_after": encrypted_message_rot47, "status": "encrypted"}
+
+                elif mode == 2 and not self.message == "":
+                    if self.shift == 13:
+                        decrypted_message_rot13 = self.decrypt_message_rot13(msg=self.message)
+                        buffer_dict = {"text_before": self.message, "rot_type": 'ROT13',
+                                       "text_after": decrypted_message_rot13, "status": "decrypted"}
+
+                    else:
+                        decrypted_message_rot47 = self.decrypt_message_rot47(msg=self.message)
+                        buffer_dict = {"text_before": self.message, "rot_type": 'ROT47',
+                                       "text_after": decrypted_message_rot47, "status": "decrypted"}
+
                 else:
-                    raise ValueError("You have entered an incorrect value.")
+                    raise ValueError("You have entered an invalid message.")
 
-            except ValueError as e:
-                if "invalid literal for int()" in str(e):
-                    print("You have entered a non-integer value for shift.")
-
-                else:
-                    print(e)
-
-        else:
-            self.running = False
-
-    def encrypt_message(self, msg: str, shift: int):
-        encrypted_message = ""
-
-        for char in msg:
-            if 33 <= ord(char) <= 126:
-                shifted = ord(char) + shift
-
-                if shifted > 126:
-                    shifted -= 94
-
-                encrypted_message += chr(shifted)
+                self.buffer.append(buffer_dict)
+                file_handler(mode="write", filename=self.filename, data=self.buffer)
 
             else:
-                encrypted_message += char
+                raise ValueError("You have entered an incorrect value.")
 
-        buffer_dict = {"text_before": msg, "rot_type": f'ROT{shift}',
-                       "text_after": encrypted_message, "status": "encrypted"}
-
-        self.buffer.append(buffer_dict)
-        file_handler(mode="write", filename=self.filename, data=self.buffer)
-
-    def decrypt_message(self, msg: str, shift: int):
-        decrypted_message = ""
-
-        for char in msg:
-            if 33 <= ord(char) <= 126:
-                shifted = ord(char) - shift
-                if shifted < 33:
-                    shifted += 94
-
-                decrypted_message += chr(shifted)
+        except ValueError as e:
+            if "invalid literal for int()" in str(e):
+                print("You have entered a non-integer value for shift.")
 
             else:
-                decrypted_message -= char
+                print(e)
 
-        buffer_dict = {"text_before": msg, "rot_type": f'ROT{shift}',
-                       "text_after": decrypted_message, "status": "decrypted"}
+    @staticmethod
+    def encrypt_message_rot13(msg: str) -> str:
+        """
+        Encrypts the message with ROT13.
 
-        self.buffer.append(buffer_dict)
-        file_handler(mode="write", filename=self.filename, data=self.buffer)
+        :param msg: message to be encrypted using ROT13
+        :return: message encrypted using ROT13
+        """
+        return codecs.encode(msg, "rot13")
+
+    @staticmethod
+    def encrypt_message_rot47(msg: str) -> str:
+        """
+        Encrypts the message with ROT47.
+
+        :param msg: message to be encrypted using ROT47
+        :return: message encrypted using ROT47
+        """
+        encrypted_message_rot47 = ""
+        for char in msg:
+            char_code = ord(char)
+            if 33 <= char_code <= 126:
+                char_code -= 47
+                if char_code < 33:
+                    char_code += 94
+            encrypted_message_rot47 += chr(char_code)
+        return encrypted_message_rot47
+
+    @staticmethod
+    def decrypt_message_rot13(msg: str) -> str:
+        """
+        Decrypts a message encrypted using ROT13.
+
+        :param msg: ROT13 encrypted message to be decrypted
+        :return: decrypted message using ROT13
+        """
+        return codecs.decode(msg, "rot13")
+
+    @staticmethod
+    def decrypt_message_rot47(msg: str) -> str:
+        """
+        Decrypts a message encrypted using ROT47.
+
+        :param msg: ROT47 encrypted message to be decrypted
+        :return: decrypted message using ROT47
+        """
+        decoded_message = ""
+        for char in msg:
+            char_code = ord(char)
+            if 33 <= char_code <= 126:
+                char_code += 47
+                if char_code > 126:
+                    char_code -= 94
+            decoded_message += chr(char_code)
+        return decoded_message
 
 
 if __name__ == '__main__':
