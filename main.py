@@ -3,48 +3,6 @@ import os
 import codecs
 
 
-def file_handler(mode: str, filename: str, data: list = None) -> list:
-    """
-    Supports file operations.
-
-    :param mode: "write" or "read"
-    :param filename:"example" or "example.JSON" - filename or filename with extension .JSON
-    :param data: optional parameter for saving data
-    :return: a list of dictionaries based on the given file
-    """
-
-    if mode not in ["read", "write"]:
-        raise ValueError("Mode must be 'read' or 'write'")
-
-    if not filename.endswith(".json"):
-        filename += ".json"
-
-    try:
-        if mode == "read":
-            if not os.path.exists(filename):
-                with open(filename, "w") as file:
-                    json.dump([], file)
-                return []
-
-            with open(filename, "r") as file:
-                try:
-                    cipher_list = json.load(file)
-
-                except json.JSONDecodeError:
-                    cipher_list = []
-
-                return cipher_list
-
-        elif mode == "write":
-            if data is None:
-                raise ValueError("Data must be provided in 'write' mode")
-
-            with open(filename, "w") as file:
-                json.dump(data, file, indent=4)
-
-    except Exception as e:
-        print(e)
-
 
 class Cipher:
     def __init__(self):
@@ -93,6 +51,7 @@ class Cipher:
 
         :param mode: 1: ROT13, 2: ROT47, 3: Save and exit
         """
+
         try:
             if self.shift in [13, 47]:
                 if mode == 1 and not self.message == "":
@@ -119,7 +78,6 @@ class Cipher:
 
                 else:
                     raise ValueError("You have entered an invalid message.")
-
                 self.buffer.append(buffer_dict)
                 file_handler(mode="write", filename=self.filename, data=self.buffer)
 
@@ -134,13 +92,14 @@ class Cipher:
                 print(e)
 
     @staticmethod
-    def encrypt_message_rot13(msg: str) -> str:
+    def encrypt_message_rot13(msg: str) -> bytes:
         """
         Encrypts the message with ROT13.
 
         :param msg: message to be encrypted using ROT13
         :return: message encrypted using ROT13
         """
+
         return codecs.encode(msg, "rot13")
 
     @staticmethod
@@ -151,6 +110,7 @@ class Cipher:
         :param msg: message to be encrypted using ROT47
         :return: message encrypted using ROT47
         """
+
         encrypted_message_rot47 = ""
         for char in msg:
             char_code = ord(char)
@@ -162,13 +122,14 @@ class Cipher:
         return encrypted_message_rot47
 
     @staticmethod
-    def decrypt_message_rot13(msg: str) -> str:
+    def decrypt_message_rot13(msg: bytes) -> str:
         """
         Decrypts a message encrypted using ROT13.
 
         :param msg: ROT13 encrypted message to be decrypted
         :return: decrypted message using ROT13
         """
+
         return codecs.decode(msg, "rot13")
 
     @staticmethod
@@ -179,6 +140,7 @@ class Cipher:
         :param msg: ROT47 encrypted message to be decrypted
         :return: decrypted message using ROT47
         """
+
         decoded_message = ""
         for char in msg:
             char_code = ord(char)
