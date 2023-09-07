@@ -1,63 +1,62 @@
-import pytest
 import os
+import pytest
 from file_handler import FileHandler
+from src.buffer_dict import BufferDict
+import json
 
 
 @pytest.fixture
-def cleanup_files():
-    yield
-    filenames = [
-        "test_existing.json",
-        "test_new.json",
-        "test_extension.json",
-        "test_no_extension.json",
-        "nonexistent_file.json",
-        "test_invalid_data.json",
-    ]
-    for filename in filenames:
-        if os.path.exists(filename):
-            os.remove(filename)
+def test_file():
+
+    filename = "test_file.json"
+    with open(filename, "w") as file:
+        json.dump([], file)
+    yield filename
+    os.remove(filename)
 
 
-def test_write_and_read_existing_json_file(cleanup_files):
-    filename = "test_existing.json"
-    data = [{"name": "John", "age": 30}, {"name": "Alice", "age": 25}]
-    FileHandler.write(filename, data)
-    result = FileHandler.read(filename)
+
+def test_write_valid_data(test_file):
+    handler = FileHandler()
+    data = [BufferDict(text_before="A", text_after="B")]
+    handler.write(test_file, data)
+
+    with open(test_file, "r") as file:
+        content = json.load(file)
+
+    assert content == BufferDict.to_dict_list(data)
+
+
+def test_write_empty_data(test_file):
+    handler = FileHandler()
+    data = []
+    handler.write(test_file, data)
+
+    with open(test_file, "r") as file:
+        content = json.load(file)
+
+    assert content == []
+
+
+def test_read_existing_file(test_file):
+    handler = FileHandler()
+    data = [BufferDict(text_before="X", text_after="Y")]
+    with open(test_file, "w") as file:
+        json.dump(BufferDict.to_dict_list(data), file)
+
+    result = handler.read(test_file)
     assert result == data
 
 
-def test_write_and_read_new_json_file(cleanup_files):
-    filename = "test_new.json"
-    data = [{"name": "Bob", "age": 35}, {"name": "Eve", "age": 28}]
-    FileHandler.write(filename, data)
-    result = FileHandler.read(filename)
-    assert result == data
-
-
-def test_write_with_extension(cleanup_files):
-    filename = "test_extension.json"
-    data = [{"name": "Charlie", "age": 40}]
-    FileHandler.write(filename, data)
-    assert os.path.exists(filename)
-
-
-def test_write_without_extension(cleanup_files):
-    filename = "test_no_extension"
-    data = [{"name": "David", "age": 45}]
-    FileHandler.write(filename, data)
-    result = FileHandler.read(filename + ".json")
-    assert result == data
-
-
-def test_read_nonexistent_file(cleanup_files):
+def test_read_nonexistent_file():
+    handler = FileHandler()
     filename = "nonexistent_file.json"
-    result = FileHandler.read(filename)
+    result = handler.read(filename)
     assert result == []
 
 
-def test_write_with_invalid_data(cleanup_files):
-    filename = "test_invalid_data.json"
+def test_write_invalid_data(test_file):
+    handler = FileHandler()
     data = None
     with pytest.raises(ValueError):
-        FileHandler.write(filename, data)
+        handler.write(test_file, data)
