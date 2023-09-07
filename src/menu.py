@@ -9,6 +9,10 @@ class Menu:
 
     @staticmethod
     def app_info():
+        """
+        Print infos about app
+        """
+
         print("")
         print("Welcome to Cipher App")
         print("Available functionalities:")
@@ -16,7 +20,10 @@ class Menu:
         print("2. Decrypt the message.")
         print("0. Save and exit.")
 
-    def get_user_choice(self):
+    def get_user_choice(self) -> dict[str, ...]:
+        """
+        Specifies what the user wants.
+        """
         try:
             self.mode = int(input("Choose what you want to do (enter a number):"))
 

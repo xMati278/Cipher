@@ -18,6 +18,12 @@ class BufferDict:
 
     @classmethod
     def to_object_list(cls, dict_list) -> list:
+        """
+        converts a list of dictionaries to a list of objects
+        :param dict_list: list of dictionaries to convert
+        :return: list of objects
+        """
+
         object_list = []
         for item in dict_list:
             try:
@@ -29,6 +35,11 @@ class BufferDict:
 
     @classmethod
     def to_dict_list(cls, object_list) -> list:
+        """
+        converts a list of objects into a list of dictionaries
+        :param object_list: list of objects to convert
+        :return: list of dictionaries
+        """
         dict_list = []
         for obj in object_list:
             dict_list.append(obj.to_dict())

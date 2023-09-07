@@ -5,7 +5,7 @@ from src.buffer_dict import BufferDict
 
 class FileHandler:
 
-    def write(self, filename: str, data: list):
+    def write(self, filename: str, data: list) -> list:
         """
         The method writes data from the "data" parameter to a file named "filename"
 
@@ -19,12 +19,11 @@ class FileHandler:
         try:
             if not filename.endswith(".json"):
                 filename += ".json"
-
-            final_dict = self.read(filename)
-            final_dict.extend(BufferDict.to_dict_list(data))
+                data = BufferDict.to_dict_list(data)
+                print(data)
 
             with open(filename, "w") as file:
-                json.dump(final_dict, file, indent=4)
+                json.dump(data, file, indent=4)
 
             return data
 
