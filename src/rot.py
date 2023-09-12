@@ -16,11 +16,12 @@ class Rot(ABC):
 
 
 class Rot13(Rot):
-    def encrypt(self, msg: str):
+    def encrypt(self, msg: str) -> str:
         """
         Encrypts the message with ROT13.
 
         :param msg: message to be encrypted using ROT13
+
         :return: message encrypted using ROT13
         """
 
@@ -38,6 +39,7 @@ class Rot13(Rot):
             else:
                 encrypted_char = char
             encrypted_text += encrypted_char
+
         return encrypted_text
 
     def decrypt(self, msg: str) -> str:
@@ -45,6 +47,7 @@ class Rot13(Rot):
         Decrypts a message encrypted using ROT13.
 
         :param msg: ROT13 encrypted message to be decrypted
+
         :return: decrypted message using ROT13
         """
 
@@ -52,16 +55,21 @@ class Rot13(Rot):
             raise ValueError("Empty string.")
 
         decrypted_text = ""
+
         for char in msg:
             if 'a' <= char <= 'z':
                 shift = ord(char) - ord('a')
                 decrypted_char = chr(((shift - 13) % 26) + ord('a'))
+
             elif 'A' <= char <= 'Z':
                 shift = ord(char) - ord('A')
                 decrypted_char = chr(((shift - 13) % 26) + ord('A'))
+
             else:
                 decrypted_char = char
+
             decrypted_text += decrypted_char
+
         return decrypted_text
 
 
@@ -71,6 +79,7 @@ class Rot47(Rot):
         Encrypts the message with ROT47.
 
         :param msg: message to be encrypted using ROT47
+
         :return: message encrypted using ROT47
         """
 
@@ -84,6 +93,7 @@ class Rot47(Rot):
                 char_code -= 47
                 if char_code < 33:
                     char_code += 94
+
             encrypted_message_rot47 += chr(char_code)
 
         return encrypted_message_rot47
@@ -100,11 +110,14 @@ class Rot47(Rot):
             raise ValueError("Empty string.")
 
         decoded_message = ""
+
         for char in msg:
             char_code = ord(char)
             if 33 <= char_code <= 126:
                 char_code += 47
                 if char_code > 126:
                     char_code -= 94
+
             decoded_message += chr(char_code)
+
         return decoded_message
