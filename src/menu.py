@@ -1,11 +1,24 @@
 class Menu:
-    def __init__(self):
-        self.mode = None
-        self.shift = None
-        self.message = None
-        self.filename = None
-        self.read_file = True
-        self.continue_loop = True
+
+    def get_user_choice(self) -> dict[str, ...]:
+        """
+        Specifies what the user wants.
+        """
+
+        self.app_info()
+        mode = self.get_app_mode()
+
+        if mode == 0:
+            return {'mode': mode}
+
+        if 0 < mode <= 2:
+            shift = self.select_rot()
+            message = self.get_message()
+            filename = self.get_filename()
+            read_file = self.read_the_file()
+
+            return {'mode': mode, 'shift': shift, 'message': message,
+                    'filename': filename, 'read_file': read_file}
 
     @staticmethod
     def app_info():
@@ -20,38 +33,97 @@ class Menu:
         print("2. Decrypt the message.")
         print("0. Save and exit.")
 
-    def get_user_choice(self) -> dict[str, ...]:
+    @staticmethod
+    def select_rot() -> str:
         """
-        Specifies what the user wants.
+        Gets the type of encryption/decryption from the user.
+
+        :return: type of encryption/decryption as string
         """
+
         try:
-            self.mode = int(input("Choose what you want to do (enter a number):"))
+            shift = str(input("Enter rot_13 if you want to use ROT13 encryption/ decryption or"
+                              " rot_47 if you want to use ROT47 encryption/ decryption:"))
 
-            if self.mode == 0:
-                return {'mode': self.mode}
+            if shift not in ["rot_13", "rot_47"]:
+                raise ValueError("You have entered an invalid value for the ROT encryption/decryption selection.")
 
-            if 0 < self.mode <= 2:
-                self.shift = int(input("Enter 13 if you want to use ROT13 encryption/ decryption or"
-                                       " 47 if you want to use ROT47 encryption/ decryption:"))
-                if self.shift not in [13, 47]:
-                    raise ValueError("the application has no such encryption method")
-
-                self.message = str(input("Enter message to be encrypted/ decrypted:"))
-                if self.message == "":
-                    raise ValueError("No message entered.")
-
-                self.filename = str(input("Enter the file name:"))
-                if self.filename == "":
-                    raise ValueError("Filename not entered.")
-
-                read_file_choice = str(input("Do you want to read data from file type yes or no? (if exist)"))
-                self.read_file = True if read_file_choice == "yes" else False
-
-            else:
-                raise ValueError("You have entered an invalid value.")
-
-            return {'mode': self.mode, 'shift': self.shift, 'message': self.message,
-                    'filename': self.filename, 'read_file': self.read_file}
+            return shift
 
         except ValueError as e:
-            print(e)
+            print(f'src.menu.select_rot Error: {e}')
+
+    @staticmethod
+    def get_message() -> str:
+        """
+        Gets the message for encryption/decryption from the user.
+
+        :return: message for encryption/decryption as string
+        """
+
+        try:
+            message = str(input("Enter message to be encrypted/ decrypted:"))
+            if message == "":
+                raise ValueError("No message entered.")
+
+            return message
+
+        except ValueError as e:
+            print(f'src.menu.get_message Error: {e}')
+
+    @staticmethod
+    def get_filename() -> str:
+        """
+        Gets the file name from the user.
+
+        :return: file name as string
+        """
+
+        try:
+            filename = str(input("Enter the file name:"))
+
+            if filename == "":
+                raise ValueError("Filename not entered.")
+
+            return filename
+
+        except ValueError as e:
+            print(f'src.menu.get_filename Error: {e}')
+
+    @staticmethod
+    def read_the_file() -> bool:
+        """
+        Gets the user's decision whether to download data from a file.
+
+        :return: True or False as bool
+        """
+
+        try:
+            read_file_choice = str(input("Do you want to read data from file, type yes or no? (if exist)"))
+            read_file_choice = read_file_choice.lower()
+
+            if read_file_choice not in ['yes', 'no']:
+                raise ValueError("You entered an incorrect value for the question asking if you want to read the file.")
+
+            return True if read_file_choice == "yes" else False
+
+        except ValueError as e:
+            print(f'src.menu.read_the_file Error: {e}')
+
+    @staticmethod
+    def get_app_mode() -> int:
+        """
+        Gets the user's choice of application functionality.
+
+        :return: application functionality mode as int
+        """
+
+        try:
+            mode = int(input("Choose what you want to do (enter a number):"))
+            if 0 <= mode <= 2:
+                return mode
+            else:
+                raise ValueError("You have not selected the correct application functionality.")
+
+        except ValueError as e:
+            print(f'src.menu.get_app_mode Error: {e}')
