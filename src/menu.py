@@ -1,27 +1,37 @@
 class Menu:
 
-    def get_user_choice(self) -> dict[str, ...]:
+    @staticmethod
+    def get_user_choice() -> dict[str, ...]:
         """
         Specifies what the user wants.
         """
 
-        self.app_info()
-        mode = self.get_app_mode()
+        Menu.main_menu()
+        mode = Menu.get_app_mode()
 
         if mode == 0:
             return {'mode': mode}
 
         if 0 < mode <= 2:
-            shift = self.select_rot()
-            message = self.get_message()
-            filename = self.get_filename()
-            read_file = self.read_the_file()
-
-            return {'mode': mode, 'shift': shift, 'message': message,
-                    'filename': filename, 'read_file': read_file}
+            return Menu.get_user_input_for_mode(mode)
 
     @staticmethod
-    def app_info():
+    def get_user_input_for_mode(mode: int) -> dict:
+        shift = Menu.select_rot()
+        message = Menu.get_message()
+        filename = Menu.get_filename()
+        read_file = Menu.read_the_file()
+
+        return {
+            'mode': mode,
+            'shift': shift,
+            'message': message,
+            'filename': filename,
+            'read_file': read_file
+        }
+
+    @staticmethod
+    def main_menu():
         """
         Print infos about app
         """
@@ -108,7 +118,7 @@ class Menu:
             return True if read_file_choice == "yes" else False
 
         except ValueError as e:
-            print(f'src.menu.read_the_file Error: {e}')
+            print(f'src.menu.read_the_file Error: {e}') #TODO errory jako logi
 
     @staticmethod
     def get_app_mode() -> int:
@@ -120,7 +130,7 @@ class Menu:
 
         try:
             mode = int(input("Choose what you want to do (enter a number):"))
-            if 0 <= mode <= 2:
+            if mode in [0, 1, 2]:
                 return mode
             else:
                 raise ValueError("You have not selected the correct application functionality.")
