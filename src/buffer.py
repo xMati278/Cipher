@@ -34,4 +34,15 @@ class Buffer:
         if obj_list is None:
             return []
 
-        return [asdict(obj) for obj in obj_list]
+        dict_list = []
+        for obj in obj_list:
+            if isinstance(obj, dict):
+                dict_list.append(obj)
+
+            elif hasattr(obj, '__dict__'):
+                dict_list.append(asdict(obj))
+
+            else:
+                raise ValueError(f"Unsupported object type: {type(obj)}")
+
+        return dict_list
