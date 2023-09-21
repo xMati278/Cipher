@@ -7,9 +7,7 @@ from src.rot import Rot
 
 class Manager:
     def __init__(self):
-        self.menu = Menu()
         self.file_handler = FileHandler()
-
         self.buffer = []
 
     def start(self):
@@ -18,38 +16,50 @@ class Manager:
         """
 
         while True:
-            menu = Menu()
-            choice = menu.get_user_choice()
+            choice = Menu.get_user_choice()
 
-            if choice['mode'] == 0:
+            if choice["mode"] == 0:
                 break
 
-            if choice['mode'] in [1, 2]:
+            if choice["mode"] in [1, 2]:
+                self.process_choice(choice)
 
-                mode = choice['mode']
-                shift = choice['shift']
-                message = choice['message']
-                filename = choice['filename']
-                read_file = choice['read_file']
+            print(f"Current buffer: {self.buffer}")
 
-                rot_version = Rot.get_rot(shift)
+    def process_choice(self, choice):
+        mode, shift, message, filename, read_file = choice.values()
 
-                if read_file:
-                    self.buffer = self.file_handler.read(filename=filename)
+        rot_version = Rot.get_rot(shift)
 
-                if mode == 1:
-                    status = 'encrpyted'
-                    msg = rot_version.encrypt(msg=message)
+        if read_file:
+            self.buffer = self.file_handler.read(filename=filename)
 
-                else:
-                    status = 'decrypted'
-                    msg = rot_version.decrypt(msg=message)
+        if mode == 1:
+            self.encrypt_message(rot_version, message, filename, read_file)
+        else:
+            self.decrypt_message(rot_version, message, filename, read_file)
 
-                msg_dict = Text(text_before=message, text_after=msg,
-                                rot_type=rot_version.__class__.__name__, status=status)
+    def encrypt_message(self, rot_version, message, filename, read_file):
+        status = "encrypted"
+        encrypted_msg = rot_version.encrypt(msg=message)
+        self.update_buffer_and_write(
+            encrypted_msg, rot_version, status, filename, read_file
+        )
 
-                self.buffer.append(msg_dict)
-                data_to_write = Buffer().to_dict_list(self.buffer)
-                self.file_handler.write(filename=filename, data=data_to_write, read=read_file)
+    def decrypt_message(self, rot_version, message, filename, read_file):
+        status = "decrypted"
+        decrypted_msg = rot_version.decrypt(msg=message)
+        self.update_buffer_and_write(
+            decrypted_msg, rot_version, status, filename, read_file
+        )
 
-            print(f'Current buffer: {self.buffer}')
+    def update_buffer_and_write(
+        self, message, rot_version, status, filename, read_file
+    ):
+        text = Text(
+            text=message, rot_type=rot_version.__class__.__name__, status=status
+        )
+
+        self.buffer.append(text)
+        data_to_write = Buffer().to_dict_list(self.buffer)
+        self.file_handler.write(filename=filename, data=data_to_write, read=read_file)
