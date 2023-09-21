@@ -48,8 +48,10 @@ class FileHandler:
         try:
             if data is None:
                 raise ValueError("Data should not be None.")
-
             filename = self.validate_file_extension(filename=filename)
+
+            if not os.path.exists(filename):
+                self.write_to_file(filename, [])
 
             if not read:
                 data_to_save = self.read(filename=filename)
