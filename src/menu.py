@@ -118,7 +118,7 @@ class Menu:
             return True if read_file_choice == "yes" else False
 
         except ValueError as e:
-            print(f'src.menu.read_the_file Error: {e}') #TODO errory jako logi
+            print(f'src.menu.read_the_file Error: {e}')
 
     @staticmethod
     def get_app_mode() -> int:
