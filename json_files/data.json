@@ -1,0 +1,12 @@
+[
+    {
+        "text": "grfg",
+        "rot_type": "Rot13",
+        "status": "encrypted"
+    },
+    {
+        "text": "test",
+        "rot_type": "Rot13",
+        "status": "decrypted"
+    }
+]
