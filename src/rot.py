@@ -4,15 +4,28 @@ from abc import ABC, abstractmethod
 
 class Rot(ABC):
     @abstractmethod
-    def encrypt(self, msg: str):
+    def encrypt(self, msg: str) -> None:
         raise NotImplementedError
 
     @abstractmethod
     def decrypt(self, msg: str):
         raise NotImplementedError
 
-    def get_rot(self, rot_type: str) -> Rot13 | Rot47:
-        pass
+    @staticmethod
+    def get_rot(rot_type: str) -> Rot13 | Rot47:
+        """
+        Selects the encryption/decryption type.
+
+        :param rot_type: encryption/decryption type
+
+        :return: encryption/decryption class of the appropriate type
+        """
+
+        if rot_type == 'rot_13':
+            return Rot13()
+
+        elif rot_type == 'rot_47':
+            return Rot47()
 
 
 class Rot13(Rot):
