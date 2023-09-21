@@ -1,5 +1,3 @@
-import pytest
-from src.menu import Menu
 from src.file_handler import FileHandler
 from src.manager import Manager
 from src.text import Text
