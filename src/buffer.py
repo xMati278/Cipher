@@ -1,6 +1,7 @@
 from typing import Any, List
 from dataclasses import asdict
 from src.text import Text
+from logs.logging_config import logger
 
 
 class Buffer:
@@ -28,8 +29,6 @@ class Buffer:
     def to_dict_list(obj_list) -> list[dict[str, Any]]:
         """
         converts a list of objects into a list of dictionaries
-
-        :param obj_list: list of objects to convert
         """
         if obj_list is None:
             return []
