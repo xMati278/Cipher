@@ -53,13 +53,8 @@ class FileHandler:
             if not os.path.exists(filename):
                 self.write_to_file(filename, [])
 
-            if not read:
-                data_to_save = self.read(filename=filename)
-                data_to_save = self.buffer_operation.to_dict_list(obj_list=data_to_save)
-                data_to_save += data
-                self.write_to_file(filename, data_to_save)
-            else:
-                self.write_to_file(filename, data)
+            data_to_save = Buffer.to_dict_list()
+            self.write_to_file(filename, data_to_save)
 
         except (FileNotFoundError, ValueError) as e:
             logger.error(f"src.file_handler.write: {e}")
