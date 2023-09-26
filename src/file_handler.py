@@ -59,7 +59,7 @@ class FileHandler:
         except (FileNotFoundError, ValueError) as e:
             logger.error(f"src.file_handler.write: {e}")
 
-    def read(self, filename: str) -> list:
+    def read_to_buffer(self, filename: str) -> list:
         """
         The method reads data from the file "filename" and returns it
 
