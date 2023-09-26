@@ -1,20 +1,18 @@
 import json
 import os
 from src.buffer import Buffer
+from logs.logging_config import logger
 
 
 class FileHandler:
     def __init__(self):
-        self.buffer_operation = Buffer()
         self.data_folder = "..//json_files"
 
     @staticmethod
     def validate_file_extension(filename: str) -> str:
         """
         Validates the filename format.
-
         :param filename: filename to validate
-
         :return: filename in the correct format
         """
 
@@ -26,7 +24,6 @@ class FileHandler:
     def write_to_file(self, filename: str, data: list) -> None:
         """
         Writes data to a JSON file.
-
         :param filename: file name in JSON format
         :param data: data to be written to a file
         """
@@ -36,7 +33,7 @@ class FileHandler:
         with open(file_path, "w") as file:
             json.dump(data, file, indent=4)
 
-    def write(self, filename: str, data: list, read: bool):
+    def write(self, filename: str, data: list[dict]):
         """
         Checks the correctness of the data to be saved and calls the save function.
 
@@ -83,7 +80,7 @@ class FileHandler:
                     cipher_list = []
                     return cipher_list
 
-                valid_list = self.buffer_operation.to_object_list(dict_list=cipher_list)
+                valid_list = Buffer.to_object_list(dict_list=cipher_list)
                 return valid_list
 
         except FileNotFoundError as e:
