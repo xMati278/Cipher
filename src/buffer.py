@@ -1,47 +1,53 @@
-from typing import Any, List
+from typing import Any, List, Dict
 from dataclasses import asdict
 from src.text import Text
 from logs.logging_config import logger
 
 
 class Buffer:
+    data = []
 
     @staticmethod
-    def to_object_list(dict_list: list) -> List[dict[str: Any]]:
+    def add(text: Text):
+        Buffer.data.append(text)
+
+    @staticmethod
+    def to_object_list(dict_list: List[Dict[str, Any]]) -> List[Text]:
         """
         Converts a list of dictionaries to a list of objects.
 
         :param dict_list: list of dictionaries to convert
         """
 
-        object_list = []
-        for item in dict_list:
-            try:
-                obj = Text(**item)
-                object_list.append(obj)
-
-            except TypeError as e:
-                raise TypeError("Invalid input data for BufferDict") from e
+        try:
+            object_list = [Text(**item) for item in dict_list]
+        except TypeError as e:
+            logger.error(e)
+            raise TypeError("Invalid input data for BufferDict") from e
 
         return object_list
 
     @staticmethod
-    def to_dict_list(obj_list) -> list[dict[str, Any]]:
+    def to_dict_list() -> List[Dict[str, Any]]:
         """
         converts a list of objects into a list of dictionaries
         """
-        if obj_list is None:
+        if Buffer.data is None:
             return []
 
         dict_list = []
-        for obj in obj_list:
-            if isinstance(obj, dict):
-                dict_list.append(obj)
+        try:
+            for obj in Buffer.data:
+                if isinstance(obj, dict):
+                    dict_list.append(obj)
 
-            elif hasattr(obj, '__dict__'):
-                dict_list.append(asdict(obj))
+                elif hasattr(obj, '__dict__'):
+                    dict_list.append(asdict(obj))
 
-            else:
-                raise ValueError(f"Unsupported object type: {type(obj)}")
+                else:
+                    raise ValueError(f"Unsupported object type: {type(obj)}")
+
+        except ValueError as e:
+            logger.error(f'src.buffer.to_dict_list: {e}')
 
         return dict_list
