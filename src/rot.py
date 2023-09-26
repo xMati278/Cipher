@@ -4,11 +4,11 @@ from abc import ABC, abstractmethod
 
 class Rot(ABC):
     @abstractmethod
-    def encrypt(self, msg: str) -> None:
+    def encrypt(self, msg: str) -> str:
         raise NotImplementedError
 
     @abstractmethod
-    def decrypt(self, msg: str):
+    def decrypt(self, msg: str) -> str:
         raise NotImplementedError
 
     @staticmethod
@@ -23,7 +23,6 @@ class Rot(ABC):
 
         if rot_type == 'rot_13':
             return Rot13()
-
         elif rot_type == 'rot_47':
             return Rot47()
 
