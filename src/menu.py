@@ -61,7 +61,7 @@ class Menu:
             return shift
 
         except ValueError as e:
-            print(f'src.menu.select_rot Error: {e}')
+            logger.error(f'src.menu.select_rot Error: {e}')
 
     @staticmethod
     def get_message() -> str:
@@ -79,7 +79,7 @@ class Menu:
             return message
 
         except ValueError as e:
-            print(f'src.menu.get_message Error: {e}')
+            logger.error(f'src.menu.get_message Error: {e}')
 
     @staticmethod
     def get_filename() -> str:
@@ -98,7 +98,7 @@ class Menu:
             return filename
 
         except ValueError as e:
-            print(f'src.menu.get_filename Error: {e}')
+            logger.error(f'src.menu.get_filename Error: {e}')
 
     @staticmethod
     def read_the_file() -> bool:
@@ -118,7 +118,7 @@ class Menu:
             return True if read_file_choice == "yes" else False
 
         except ValueError as e:
-            print(f'src.menu.read_the_file Error: {e}')
+            logger.error(f'src.menu.read_the_file Error: {e}')
 
     @staticmethod
     def get_app_mode() -> int:
