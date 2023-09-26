@@ -62,7 +62,7 @@ class FileHandler:
                 self.write_to_file(filename, data)
 
         except (FileNotFoundError, ValueError) as e:
-            print(f"src.file_handler.write Error: {e}")
+            logger.error(f"src.file_handler.write: {e}")
 
     def read(self, filename: str) -> list:
         """
@@ -92,4 +92,4 @@ class FileHandler:
                 return valid_list
 
         except FileNotFoundError as e:
-            print(f"src.file_handler.read Error: {e}")
+            logger.error(f"src.file_handler.read: {e}")
