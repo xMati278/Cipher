@@ -9,7 +9,7 @@ class Menu:
         Menu.main_menu()
         mode = Menu.get_app_mode()
 
-        if mode == 0:
+        if mode in [0, 3, 4]:
             return {'mode': mode}
 
         if 0 < mode <= 2:
@@ -19,15 +19,11 @@ class Menu:
     def get_user_input_for_mode(mode: int) -> dict:
         shift = Menu.select_rot()
         message = Menu.get_message()
-        filename = Menu.get_filename()
-        read_file = Menu.read_the_file()
 
         return {
             'mode': mode,
             'shift': shift,
             'message': message,
-            'filename': filename,
-            'read_file': read_file
         }
 
     @staticmethod
@@ -41,6 +37,8 @@ class Menu:
         print("Available functionalities:")
         print("1. Encrypt the message.")
         print("2. Decrypt the message.")
+        print("3. Load data from JSON file.")
+        print("4. Save Buffer to JSON file")
         print("0. Save and exit.")
 
     @staticmethod
@@ -101,26 +99,6 @@ class Menu:
             logger.error(f'src.menu.get_filename Error: {e}')
 
     @staticmethod
-    def read_the_file() -> bool:
-        """
-        Gets the user's decision whether to download data from a file.
-
-        :return: True or False as bool
-        """
-
-        try:
-            read_file_choice = str(input("Do you want to read data from file, type yes or no? (if exist)"))
-            read_file_choice = read_file_choice.lower()
-
-            if read_file_choice not in ['yes', 'no']:
-                raise ValueError("You entered an incorrect value for the question asking if you want to read the file.")
-
-            return True if read_file_choice == "yes" else False
-
-        except ValueError as e:
-            logger.error(f'src.menu.read_the_file Error: {e}')
-
-    @staticmethod
     def get_app_mode() -> int:
         """
         Gets the user's choice of application functionality.
@@ -130,7 +108,7 @@ class Menu:
 
         try:
             mode = int(input("Choose what you want to do (enter a number):"))
-            if mode in [0, 1, 2]:
+            if mode in [0, 1, 2, 3, 4]:
                 return mode
             else:
                 raise ValueError("You have not selected the correct application functionality.")
