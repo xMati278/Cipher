@@ -1,3 +1,6 @@
+from logs.logging_config import logger
+
+
 class Menu:
 
     @staticmethod
@@ -114,4 +117,4 @@ class Menu:
                 raise ValueError("You have not selected the correct application functionality.")
 
         except ValueError as e:
-            print(f'src.menu.get_app_mode Error: {e}')
+            logger.error(f'src.menu.get_app_mode Error: {e}')
