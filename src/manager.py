@@ -8,7 +8,6 @@ from src.rot import Rot
 class Manager:
     def __init__(self):
         self.file_handler = FileHandler()
-        self.buffer = []
 
     def start(self):
         """
@@ -27,10 +26,10 @@ class Manager:
             if choice["mode"] == 3:
                 Buffer.data = self.load_json_file()
 
-            if choice["mode"] == 4: # TODO Save
+            if choice["mode"] == 4:  # TODO Save
                 self.save_to_json_file()
 
-            print(f"Current buffer: {self.buffer}")
+            print(f"Current buffer: {Buffer.data}")
 
     def process_choice(self, choice):
         mode, shift, message = choice.values()
@@ -45,13 +44,17 @@ class Manager:
     def encrypt_message(self, rot_version, message):
         status = "encrypted"
         encrypted_msg = rot_version.encrypt(msg=message)
-        new_text_object = self.create_text_object(message=encrypted_msg, status=status, rot_version=rot_version)
+        new_text_object = self.create_text_object(
+            message=encrypted_msg, status=status, rot_version=rot_version
+        )
         Buffer.data.append(new_text_object)
 
     def decrypt_message(self, rot_version, message):
         status = "decrypted"
         decrypted_msg = rot_version.decrypt(msg=message)
-        new_text_object = self.create_text_object(message=decrypted_msg, status=status, rot_version=rot_version)
+        new_text_object = self.create_text_object(
+            message=decrypted_msg, status=status, rot_version=rot_version
+        )
         Buffer.data.append(new_text_object)
 
     def load_json_file(self) -> list:
