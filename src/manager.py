@@ -56,7 +56,7 @@ class Manager:
 
     def load_json_file(self) -> list:
         filename = Menu().get_filename()
-        data_to_load = self.file_handler.read(filename=filename)
+        data_to_load = self.file_handler.read_to_buffer(filename=filename)
         return data_to_load
 
     def save_to_json_file(self):
