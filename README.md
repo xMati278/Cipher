@@ -2,7 +2,6 @@
 * [General Info](#general-info)
 * [Functions](#functions)
 * [Getting started](#getting-started)
-* [Application view](#application-view)
 * [License](#license)
 * [Contact](#contact-us)
 
@@ -30,8 +29,6 @@ can be handy for safeguarding confidential information.
 1. Install Python 3.10.1
 2. Clone git repo ```git clone https://github.com/xMati278/Cipher.git ```
 3. Install required Python Packages ```pip install -r requirements.txt```
-
-## Application view
 
 ## License
 Distributed under the MIT License. See `LICENSE.txt` for more information.
