@@ -6,8 +6,6 @@
 * [Contact](#contact-us)
 
 ## General info
-<details>
-<summary>Click here to see general information about <b>Project</b></summary>
 An application for <a href="https://en.wikipedia.org/wiki/ROT13">ROT13</a> and
 <a href="https://en.wikipedia.org/wiki/ROT13#Variants">ROT47</a> encryption is
 a tool that allows encrypting and decryptingtexts using the
@@ -15,7 +13,6 @@ popular <a href="https://en.wikipedia.org/wiki/ROT13">ROT13</a>
 and <a href="https://en.wikipedia.org/wiki/ROT13#Variants">ROT47</a> algorithms.
 It is a simple and useful application that 
 can be handy for safeguarding confidential information.
-</details>
 
 ## Functions
 <ul>
