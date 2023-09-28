@@ -113,7 +113,7 @@ def test_write(data_to_write, read, expected_data):
         os.makedirs(os.path.dirname(temp_file), exist_ok=True)
 
         if not read:
-            FileHandler().write(filename=temp_file, data=data_to_write, read=read)
+            FileHandler().write(filename=temp_file, data=data_to_write)
         else:
             FileHandler().write_to_file(filename=temp_file, data=data_to_write)
 
