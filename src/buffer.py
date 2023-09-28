@@ -37,6 +37,8 @@ class Buffer:
     def to_dict_list() -> List[Dict[str, Any]]:
         """
         converts a list of objects into a list of dictionaries
+
+        :return: list od dictionaries
         """
 
         if Buffer.data is None:
