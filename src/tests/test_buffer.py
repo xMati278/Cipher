@@ -24,8 +24,10 @@ class TestBuffer:
             Text(text="abc", rot_type="Rot13", status="encrypted"),
             Text(text="xyz", rot_type="Rot13", status="decrypted"),
         ]
+        for i in obj_list:
+            Buffer.add(i)
 
-        dict_list = Buffer.to_dict_list(obj_list)
+        dict_list = Buffer.to_dict_list()
 
         assert len(dict_list) == 2
         assert dict_list[0]["text"] == "abc"
