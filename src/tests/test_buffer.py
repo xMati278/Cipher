@@ -4,8 +4,8 @@ from src.text import Text
 
 
 class TestBuffer:
-    @staticmethod
-    def test_to_object_list():
+
+    def test_to_object_list(self):
         dict_list = [
             {"text": "abc", "rot_type": "Rot13", "status": "encrypted"},
             {"text": "xyz", "rot_type": "Rot13", "status": "decrypted"},
@@ -18,8 +18,7 @@ class TestBuffer:
         assert obj_list[1].text == "xyz"
         assert obj_list[1].rot_type == "Rot13"
 
-    @staticmethod
-    def test_to_dict_list():
+    def test_to_dict_list(self):
         obj_list = [
             Text(text="abc", rot_type="Rot13", status="encrypted"),
             Text(text="xyz", rot_type="Rot13", status="decrypted"),
