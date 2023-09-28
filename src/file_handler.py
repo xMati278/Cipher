@@ -12,6 +12,7 @@ class FileHandler:
     def validate_file_extension(filename: str) -> str:
         """
         Validates the filename format.
+
         :param filename: filename to validate
         :return: filename in the correct format
         """
@@ -24,6 +25,7 @@ class FileHandler:
     def write_to_file(self, filename: str, data: list) -> None:
         """
         Writes data to a JSON file.
+
         :param filename: file name in JSON format
         :param data: data to be written to a file
         """
