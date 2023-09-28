@@ -35,7 +35,7 @@ class Manager:
         """
         processes and decides what the application should do
 
-        :param choice:
+        :param choice: dictionary with choices
         """
 
         mode, shift, message = choice.values()
@@ -48,6 +48,13 @@ class Manager:
             self.decrypt_message(rot_version, message)
 
     def encrypt_message(self, rot_version: Rot, message: str) -> None:
+        """
+        process encryption functionality
+
+        :param rot_version: Rot object
+        :param message: message to be encrypted
+        """
+
         status = "encrypted"
         encrypted_msg = rot_version.encrypt(msg=message)
         new_text_object = self.create_text_object(
@@ -56,6 +63,13 @@ class Manager:
         Buffer.data.append(new_text_object)
 
     def decrypt_message(self, rot_version: Rot, message: str) -> None:
+        """
+        process decryption fonctionality
+
+        :param rot_version: Rot object
+        :param message: message to be decrypted
+        """
+
         status = "decrypted"
         decrypted_msg = rot_version.decrypt(msg=message)
         new_text_object = self.create_text_object(
@@ -64,16 +78,36 @@ class Manager:
         Buffer.data.append(new_text_object)
 
     def load_json_file(self) -> list:
+        """
+        load data from json file
+
+        :return: list of objects to save in buffer from file
+        """
+
         filename = Menu().get_filename()
         data_to_load = self.file_handler.read_to_buffer(filename=filename)
         return data_to_load
 
     def save_to_json_file(self) -> None:
+        """
+        save data from buffer to json file
+        """
+
         filename = Menu().get_filename()
         self.file_handler.write(filename=filename, data=Buffer.data)
 
     @staticmethod
     def create_text_object(message: str, rot_version: Rot, status: str) -> Text:
+        """
+        create text object
+
+        :param message: message
+        :param rot_version: Rot object
+        :param status: status (encrypted/ decrypted)
+
+        :return: Text object
+        """
+
         text = Text(
             text=message, rot_type=rot_version.__class__.__name__, status=status
         )
