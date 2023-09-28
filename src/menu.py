@@ -19,7 +19,7 @@ class Menu:
             return Menu.get_user_input_for_mode(mode)
 
     @staticmethod
-    def get_user_input_for_mode(mode: int) -> dict:
+    def get_user_input_for_mode(mode: int) -> dict[str, ...]:
         shift = Menu.select_rot()
         message = Menu.get_message()
 
