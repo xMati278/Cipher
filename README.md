@@ -4,7 +4,7 @@
 * [Getting started](#getting-started)
 * [Application view](#application-view)
 * [License](#license)
-* [Contact](#contact)
+* [Contact](#contact-us)
 
 ## General info
 <details>
@@ -31,5 +31,10 @@ can be handy for safeguarding confidential information.
 2. Clone git repo ```git clone https://github.com/xMati278/Cipher.git ```
 3. Install required Python Packages ```pip install -r requirements.txt```
 
-## Contact
+## Application view
+
+## License
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+## Contact us
 [Send e-mail](mailto:xmati278@gmail.com)
