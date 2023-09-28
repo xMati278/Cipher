@@ -7,6 +7,8 @@ class Menu:
     def get_user_choice() -> dict[str, ...]:
         """
         Specifies what the user wants.
+
+        :return: dict with choices
         """
 
         Menu.main_menu()
@@ -20,6 +22,13 @@ class Menu:
 
     @staticmethod
     def get_user_input_for_mode(mode: int) -> dict[str, ...]:
+        """
+        get user input for mode
+
+        :param mode: app mode
+        :return: dictionary with mode, shift and message
+        """
+
         shift = Menu.select_rot()
         message = Menu.get_message()
 
