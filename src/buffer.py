@@ -8,7 +8,13 @@ class Buffer:
     data = []
 
     @staticmethod
-    def add(text: Text):
+    def add(text: Text) -> None:
+        """
+        Add Text object to Buffer
+
+        :param text: Text object
+        """
+
         Buffer.data.append(text)
 
     @staticmethod
@@ -32,6 +38,7 @@ class Buffer:
         """
         converts a list of objects into a list of dictionaries
         """
+
         if Buffer.data is None:
             return []
 
