@@ -26,12 +26,18 @@ class Manager:
             if choice["mode"] == 3:
                 Buffer.data = self.load_json_file()
 
-            if choice["mode"] == 4:  # TODO Save
+            if choice["mode"] == 4:
                 self.save_to_json_file()
 
             print(f"Current buffer: {Buffer.data}")
 
-    def process_choice(self, choice):
+    def process_choice(self, choice: dict[str, ...]) -> None:
+        """
+        processes and decides what the application should do
+
+        :param choice:
+        """
+
         mode, shift, message = choice.values()
 
         rot_version = Rot.get_rot(shift)
@@ -41,7 +47,7 @@ class Manager:
         else:
             self.decrypt_message(rot_version, message)
 
-    def encrypt_message(self, rot_version, message):
+    def encrypt_message(self, rot_version: Rot, message: str) -> None:
         status = "encrypted"
         encrypted_msg = rot_version.encrypt(msg=message)
         new_text_object = self.create_text_object(
@@ -49,7 +55,7 @@ class Manager:
         )
         Buffer.data.append(new_text_object)
 
-    def decrypt_message(self, rot_version, message):
+    def decrypt_message(self, rot_version: Rot, message: str) -> None:
         status = "decrypted"
         decrypted_msg = rot_version.decrypt(msg=message)
         new_text_object = self.create_text_object(
@@ -62,11 +68,12 @@ class Manager:
         data_to_load = self.file_handler.read_to_buffer(filename=filename)
         return data_to_load
 
-    def save_to_json_file(self):
+    def save_to_json_file(self) -> None:
         filename = Menu().get_filename()
         self.file_handler.write(filename=filename, data=Buffer.data)
 
-    def create_text_object(self, message, rot_version, status):
+    @staticmethod
+    def create_text_object(message: str, rot_version: Rot, status: str) -> Text:
         text = Text(
             text=message, rot_type=rot_version.__class__.__name__, status=status
         )
