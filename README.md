@@ -22,3 +22,10 @@ can be handy for safeguarding confidential information.
 <li>Loading data from a JSON file.</li>
 <li>Saving data from a JSON file</li>
 </ul>
+
+## Setup
+<ul>
+<li>Install Python 3.10.1</li>
+<li>Clone git repo ```git clone https://github.com/xMati278/Cipher.git```</li>
+<li>Install required Python Packages ```pip install -r requirements.txt```</li>
+</ul>
