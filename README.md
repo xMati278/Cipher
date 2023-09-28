@@ -24,8 +24,7 @@ can be handy for safeguarding confidential information.
 </ul>
 
 ## Setup
-<ul>
-<li>Install Python 3.10.1</li>
-<li>Clone git repo ```git clone https://github.com/xMati278/Cipher.git```</li>
-<li>Install required Python Packages ```pip install -r requirements.txt```</li>
-</ul>
+
+1. Install Python 3.10.1
+2. Clone git repo ```git clone https://github.com/xMati278/Cipher.git ```
+3. Install required Python Packages ```pip install -r requirements.txt```
