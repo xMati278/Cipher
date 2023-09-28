@@ -121,7 +121,3 @@ def test_write(data_to_write, read, expected_data):
             read_data = json.load(file)
 
         assert read_data == expected_data
-
-
-if __name__ == "__main__":
-    pytest.main()
