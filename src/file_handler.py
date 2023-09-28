@@ -33,13 +33,12 @@ class FileHandler:
         with open(file_path, "w") as file:
             json.dump(data, file, indent=4)
 
-    def write(self, filename: str, data: list[dict]):
+    def write(self, filename: str, data: list[dict]) -> None:
         """
         Checks the correctness of the data to be saved and calls the save function.
 
         :param filename: file name in JSON format
         :param data: data to be written to a file
-        :param read: information whether data was downloaded from the file
         """
 
         try:
@@ -61,7 +60,6 @@ class FileHandler:
         The method reads data from the file "filename" and returns it
 
         :param filename: "example" or "example.JSON" - filename or filename with extension .JSON
-
         :return: a list of dictionaries based on the given file
         """
 
