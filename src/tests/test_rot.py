@@ -1,9 +1,11 @@
 import pytest
 from src.rot import Rot13, Rot47
 
+
 @pytest.fixture
 def rot13_instance():
     return Rot13()
+
 
 @pytest.fixture
 def rot47_instance():
