@@ -1,8 +1,8 @@
-from src.menu import Menu
-from src.buffer import Buffer
-from src.text import Text
-from src.file_handler import FileHandler
-from src.rot import Rot
+from .menu import Menu
+from .buffer import Buffer
+from .text import Text
+from .file_handler import FileHandler
+from .rot import Rot
 
 
 class Manager:

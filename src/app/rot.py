@@ -98,7 +98,7 @@ class Rot47(Rot):
         if msg == "":
             raise ValueError("Empty string.")
 
-        encrypted_message_rot47 = ""
+        encrypted_message = ""
         for char in msg:
             char_code = ord(char)
             if 33 <= char_code <= 126:
@@ -106,9 +106,9 @@ class Rot47(Rot):
                 if char_code < 33:
                     char_code += 94
 
-            encrypted_message_rot47 += chr(char_code)
+            encrypted_message += chr(char_code)
 
-        return encrypted_message_rot47
+        return encrypted_message
 
     def decrypt(self, msg: str) -> str:
         """

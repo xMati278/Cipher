@@ -1,7 +1,7 @@
 import json
 import os
-from src.buffer import Buffer
 from logs.logging_config import logger
+from .buffer import Buffer
 
 
 class FileHandler:

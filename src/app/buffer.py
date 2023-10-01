@@ -1,8 +1,8 @@
 from typing import Any, List, Dict
 from dataclasses import asdict
-from src.text import Text
-from logs.logging_config import logger
 
+from logs.logging_config import logger
+from .text import Text
 
 class Buffer:
     data = []

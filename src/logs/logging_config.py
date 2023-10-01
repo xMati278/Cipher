@@ -3,7 +3,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-log_filename = "..//logs//app.log"
+log_filename = "logs/app.log"
 file_handler = logging.FileHandler(log_filename)
 file_handler.setLevel(logging.DEBUG)
 

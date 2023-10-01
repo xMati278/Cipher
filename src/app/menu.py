@@ -51,7 +51,7 @@ class Menu:
         print("2. Decrypt the message.")
         print("3. Load data from JSON file.")
         print("4. Save Buffer to JSON file")
-        print("0. Save and exit.")
+        print("0. Exit.")
 
     @staticmethod
     def select_rot() -> str:
