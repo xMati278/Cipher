@@ -1,5 +1,5 @@
 import pytest
-from src.rot import Rot13, Rot47
+from app.rot import Rot13, Rot47
 
 
 @pytest.fixture

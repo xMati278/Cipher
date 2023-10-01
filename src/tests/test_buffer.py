@@ -1,6 +1,5 @@
-import pytest
-from src.buffer import Buffer
-from src.text import Text
+from app.buffer import Buffer
+from app.text import Text
 
 
 class TestBuffer:

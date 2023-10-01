@@ -1,4 +1,4 @@
-from manager import Manager
+from app.manager import Manager
 
 if __name__ == "__main__":
     manager = Manager()

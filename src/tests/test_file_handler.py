@@ -2,7 +2,8 @@ import pytest
 import json
 import os
 import tempfile
-from src.file_handler import FileHandler
+from app.file_handler import FileHandler
+from app.text import Text
 
 
 @pytest.mark.parametrize(
