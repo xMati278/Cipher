@@ -31,6 +31,3 @@ class TestBuffer:
         assert dict_list[0]["text"] == "abc"
         assert dict_list[1]["status"] == "decrypted"
 
-
-if __name__ == "__main__":
-    pytest.main()
