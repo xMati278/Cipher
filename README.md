@@ -1,5 +1,6 @@
 # Content of Project
 * [General Info](#general-info)
+* [Coverage Score](#coverage-score)
 * [Built With](#built-with)
 * [Functions](#functions)
 * [Getting started](#getting-started)
@@ -9,16 +10,17 @@
 ## General info
 An application for <a href="https://en.wikipedia.org/wiki/ROT13">ROT13</a> and
 <a href="https://en.wikipedia.org/wiki/ROT13#Variants">ROT47</a> encryption is
-a tool that allows encrypting and decrypting texts using the
-popular <a href="https://en.wikipedia.org/wiki/ROT13">ROT13</a>
-and <a href="https://en.wikipedia.org/wiki/ROT13#Variants">ROT47</a> algorithms.
-It is a simple and useful application that
+a tool that allows encrypting and decrypting texts using the popular ROT13
+and ROT47 algorithms. It is a simple and useful application that
 can be handy for safeguarding confidential information.
 
+## Coverage score
+ ![Coverage score][Coverage-score]
+
 ## Built With
-* [![Python][Python]][Python-url]
-* [![Pytest][Pytest]][Pytest-url]
-* [![Pre-commit][Pre-commit]][Pre-commit-url]
+[![Python][Python]][Python-url]
+[![Pytest][Pytest]][Pytest-url]
+[![Pre-commit][Pre-commit]][Pre-commit-url]
 
 ## Functions
 <ul>
@@ -40,7 +42,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [Send e-mail](mailto:xmati278@gmail.com)
 
 
-
+[Coverage-score]: https://i.imgur.com/bEwtAur.png
 [Python-url]: https://www.python.org
 [Python]: https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white
 [Pytest-url]: https://docs.pytest.org/en/7.4.x/
